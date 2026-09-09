@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-tm6h+&h)i+=el%9+@4fp7(2w&*(z6gm(yxv3_e3zs8(-ub9^)w
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "vebian-francois-myportofolio.pws.cs.ui.ac.id"]
+CSRF_TRUSTED_ORIGINS=["https://vebian-francois-myportofolio.pws.cs.ui.ac.id"]
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 
 
@@ -149,5 +150,3 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
-
-CSRF_TRUSTED_ORIGINS=["https://vebian-francois-myportofolio.pws.cs.ui.ac.id/"]
