@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models import Experience
+from main.models import Experience, Skill
 
 
 class MainTest(TestCase):
@@ -13,6 +13,10 @@ class MainTest(TestCase):
             # title="Mentor DDP0 2026",
             # description="Membantu mahasiswa baru Fakultas Ilmu komputer mempelajari dasar python dan kehidupan di kampus",
             category="part-time",
+        )
+        self.skill = Skill.objects.create(
+            title="Python",
+            percentage=73,
         )
 
     def test_main_url_is_accessible(self):
@@ -58,3 +62,22 @@ class MainTest(TestCase):
         self.assertFalse(self.experience.is_ongoing)
         self.assertContains(response, "Selesai")
         self.assertNotContains(response, "Sedang berlangsung")
+
+    def test_skill_model(self):
+        self.assertEqual(str(self.skill), "Python")
+        self.assertEqual(self.skill.percentage, 73)
+
+    def test_skills_page(self):
+        response = self.client.get(reverse("main:show_skill"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "skill.html")
+        self.assertContains(response, self.skill.title)
+        self.assertContains(response, f"{self.skill.percentage}%")
+        self.assertContains(response, f'href="{reverse("main:show_main")}"')
+
+    def test_empty_skills_page(self):
+        Skill.objects.all().delete()
+        response = self.client.get(reverse("main:show_skill"))
+
+        self.assertContains(response, "Belum ada skill yang ditambahkan.")

@@ -297,7 +297,7 @@ section {
 
 h2 {
     font-size: 3rem;
-    ;
+    margin-bottom: 1rem;
 }
 
 /* Skill */
@@ -324,6 +324,7 @@ h2 {
 
 .skill-fill {
     height: 100%;
+    width: var(--percent);
     background-color: var(--accent);
 }
 
@@ -397,16 +398,17 @@ h2 {
     height: 300px;
     } */
 
-.card {
+.empty-box {
     display: flex;
     align-items: center;
     justify-content: center;
     border: var(--line) 1px solid;
     border-radius: var(--radius);
-    height: 40px;
+    height: 100px;
+    /* max-height: auto; */
 }
 
-.card h3 {
+.empty-box h3 {
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-muted);
 }
@@ -515,10 +517,10 @@ h2 {
     text-transform: uppercase;
 }
 
-.experience-section h1 {
+/* .experience-section h1 {
     margin: 0.4rem 0 1.5rem;
     font-size: 2rem;
-}
+} */
 
 .experience-grid {
     display: grid;
