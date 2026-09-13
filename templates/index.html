@@ -8,11 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <header class="site-header">
         <div class="inside-header">
+            <input type="checkbox" name="" id="menu">
             <a href="{% url 'main:show_main' %}" class="brand">
                 <span class="kanji">乐</span>
                 <span class="brand-name"><i>Vebian</i></span>
@@ -29,6 +34,7 @@
             <div class="my-portfolio">
                 <a href="{% url 'main:show_main' %}">Profile</a>
             </div>
+            <label for="menu" class="toggle"></label>
         </div>
 
     </header>

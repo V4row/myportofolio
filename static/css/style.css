@@ -22,6 +22,10 @@ body {
     color: var(--ink);
     background-color: var(--base-background);
     line-height: 1.6;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -30,6 +34,8 @@ body {
     top: 0;
     z-index: 1000;
 
+    background: rgba(6, 10, 18, 0.8);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
 }
 
@@ -38,10 +44,7 @@ body {
     align-items: center;
     justify-content: space-between;
 
-
     font-family: 'Fraunces', serif;
-    background: rgba(6, 10, 18, 0.8);
-    backdrop-filter: blur(12px);
     padding: 1rem 5%;
 }
 
@@ -117,9 +120,18 @@ nav {
     width: 100%;
 }
 
+#menu {
+    display: none;
+}
+
+.toggle {
+    display: none;
+}
+
 main {
     margin: 0 10%;
     margin-top: 40px;
+    flex: 1;
     /* background-color: rosybrown; */
 }
 
@@ -401,14 +413,73 @@ h2 {
 
 .site-footer {
     border-top: 1px solid var(--line);
-    height: 100px;
+    min-height: 100px;
+    max-height: 200px;
     font-size: 0.75rem;
     padding: 2% 5%;
 }
 
 @media (max-width: 800px) {
+
+    .inside-header {
+        flex-wrap: wrap;
+    }
+
     nav {
+        width: 100%;
+        order: 1;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.2s ease-in-out;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+        padding-top: 1rem ;
+    }
+
+    .nav-list li {
+        width: 95%;
+        border-top: var(--line) 1px solid;
+    }
+    
+    .nav-list li a {
+        display: block;
+        padding: 0.85rem 0;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .my-portfolio{
         display: none;
+    }
+
+    .toggle{
+        display: block;
+        cursor: pointer;
+        position: relative;
+        line-height: 1;
+        width: 30px;
+        height: 30px;
+    }
+
+    .toggle::before{
+        position: absolute;
+        content: "menu";
+        font-family: 'Material Icons';
+        top: 0;
+        left: 0;
+        font-size: 30px;
+    }
+
+    #menu:checked ~ nav{
+        max-height: 400px;
+    }
+    #menu:checked ~ .toggle::before{
+        content: "close";
     }
 
     .hero {
