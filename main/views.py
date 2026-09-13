@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from main.models import Experience, Skill
+from main.models import Experience, Skill, Project
 
 
 def show_main(request):
@@ -29,3 +29,10 @@ def show_skill(request):
         "skill_list" : Skill.objects.all(), 
     }
     return render(request, "skill.html", context)
+
+def show_project(request):
+    context = {
+        "name" : "Vebian Francois Ariftya Manurung",
+        "project_list" : Project.objects.all(), 
+    }
+    return render(request, "project.html", context)

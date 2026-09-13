@@ -40,3 +40,13 @@ class Skill(models.Model):
 
    def __str__(self):
        return self.title
+   
+class Project(models.Model):
+   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   title = models.CharField(max_length=255)
+   description = models.TextField()
+   thumbnail = models.URLField(blank=True, null=True)
+   url = models.URLField(blank=False, null=False)
+
+   def __str__(self):
+       return self.title
