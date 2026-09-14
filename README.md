@@ -18,6 +18,25 @@ Kelas : PBP D
 
 >Saya tidak menggunakan AI dalam mengerjakan tugas ini, tetapi saya banyak memakai tutorial dan mengikuti desain yang tersedia di Internet. Untuk lebih lengkap ada di bagian _Learning Source_.
 
+### Tugas 2
+
+1. Alur yang terjadi sekarang dimulai dari request oleh user misal /"" ke yang akan masuk ke `urls.py` proyek dan dari situ akan diarahkan ke `urls.py` aplikasi karena telah diinclude didalamnya (berbeda dengan /admin yang tidak masuk kesebuah aplikasi). Dari `urls.py` aplikasi barulah mengarahkan kita ke setiap view yang kita ingin atau jika ada. Dalam `views.py` menerima request lalu mengambil data dari database dan menyimpannya dalam suatu dictionary (`context`), lalu kemudian `views.py` mengembalikan hasil render sekalian dengan `.html` yang ingin dibuka. `models.py` Adalah tabel data itu sendiri yang diambil oleh `views.py` yang memiliki _field_ (kolom) dan _object_ (baris). `.html` Ini berada didalam `templates/` yang memiliki berbagai file `.html` yang dipakaikan Django Template Language (DTL).
+
+2. Menyimpan data didalam sebuah model memudahkan kita untuk memelihara dan mengembangkan aplikasi, dibandingkan _hardcoded_ yang langsung ditulis datanya didalam `templates/` yang akan menyusahkan kita jika ingin menambah atau mengedit data. Penggunaan model memudahkanya karena kita jadi hanya perlu mengolah data yang didalam database dan otomatis akan berubah juga di `templates/`. Terlebih ini implementasi pemisahan logika antara pengatur tampilan dan data.
+
+3. `makemigrations` dan `migrate` berbeda tapi saling berhubungan.
+    * `makemigrations` dipakai untuk melihat dan mencatat perubahan pada `models.py` dan membuat berkas baru di dalam `/migrations`, tapi belum mengimplementasikannya di dalam database.
+    * `migrate` memakai catatan didalam `/migrations` tadi dan mengimplementasikannya ke dalam database.
+    ```
+    # jadi urutannya
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+    ```
+
+    Perlu diingat hal ini harus dilakukan setiap menambah atau mengedit sebuah model di dalam `models.py`.
+
+>Saya menggunakan AI model _Gemini_ dalam mengerjakan tugas 2 ini,  saya gunakan untuk membantu saya menerapkan sistem toggle navbar di layar responsive karena tutorial youtube yang saya ikuti memiliki perbedaan struktur _header_ dan cara membuat struktur laman _Projects_ kiri-kanan tanpa javascript disarankan memakai _nth-child_. Contoh promt yang saya gunakan adalah file `.html` saya dan file `.html` dari contoh [tutorial](https://github.com/SnippetsDevelop/snippetsdevelop.github.io/blob/master/codes/Hamburger-Menu.html) dengan pesan "Saya ingin menerapkan desain ini dikode saya, tapi saya membuat navnya ada ditengah (divideo cuma ada logo dan nav), bagaimana agar bisa dipakai di kode saya". Selain itu saya juga mengikuti tutorial lain yang beberapa saya tambahkan di bagian _Learning Source_.
+
 ## Learning Source
 Pada Tugas ini, banyak refrensi yang saya gunakan, dan refrensi utama saya untuk membuat website ini adalah desain dari web
 >[ryoku.dev](https://ryoku.dev/)
@@ -31,6 +50,9 @@ Selain itu banyak juga tutorial dari Youtube yang saya tonton, seperti berikut:
 * https://youtu.be/l04dDYW-QaI?si=UraM26mqd1gKL-OV
 * https://youtu.be/a8CwpGARAsQ?si=Lxe3hdQDHMu9MYzF (Edit Readme.md)
 * https://youtu.be/aswRKAjjWuE?si=91_exOXhHZF1AgPp
+* https://youtu.be/sDE34X8b6Ts?list=PLZS-MHyEIRo6p_RwsWntxMO5QAqIHHHld (Playlist django oleh **Kelas Terbuka** yang belum saya tonton semua karena agak berbeda :v)
+* https://youtu.be/OnWTTUfBLMo?si=lDTH7QOPW62BeHeN (toggle menu)
+* https://youtu.be/Rw1JeekTUVU?si=iO_lJC2dptWYQu1V (logic DTE)
 * Dan lainnya (Ada yang dari shorts Youtube juga)
 
 Saya juga belajar pemakaian dan masalah git/github serta hal lainnya dengan bantuan paman saya. <br>
@@ -39,6 +61,7 @@ Lalu beberapa alat yang saya pakai:
 * https://palettegenerator.com/ (Generate Palatte warna)
 * https://paletton.com/
 * https://glitchyimage.com/ (Belum terpakai :v)
+* https://www.magicpattern.design/tools/css-backgrounds (background untuk tidak ada image)
 * IbisPaint X
 * Dan lainnya 
 
