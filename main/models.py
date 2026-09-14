@@ -1,5 +1,13 @@
 import uuid
 from django.db import models
+from django.core.exceptions import ValidationError
+
+def validate_percentage(value):
+    nilai = value
+    if nilai < 0 or nilai > 100:
+        message = "Persentase tidak valid"
+        raise ValidationError(message)
+
 
 class Experience(models.Model):
     EXPERIENCE_CHOICES = [
@@ -24,3 +32,21 @@ class Experience(models.Model):
     @property
     def is_ongoing(self):
         return self.ended_at is None
+    
+class Skill(models.Model):
+   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   title = models.CharField(max_length=255)
+   percentage = models.IntegerField(default=0, validators=[validate_percentage])
+
+   def __str__(self):
+       return self.title
+   
+class Project(models.Model):
+   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+   title = models.CharField(max_length=255)
+   description = models.TextField()
+   thumbnail = models.URLField(blank=True, null=True)
+   url = models.URLField(blank=False, null=False)
+
+   def __str__(self):
+       return self.title
