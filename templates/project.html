@@ -48,9 +48,30 @@
             </div>
             <h2>Project</h2>
 
-            <div class="empty-box">
-                <h3>COMING SOON</h3>
-            </div>
+            {% for project in project_list %}
+                <div class="project-box">
+                    <div class="project-info">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-desc">{{ project.description }}</p>
+                        <div class="project-link">
+                            <a href="{{ project.url }}"> See it yourself</a>
+                        </div>
+                    </div>
+                    <div class="project-img">
+                        {% if project.thumbnail %}
+                            <img src="{{ project.thumbnail }}" alt="{{ project.title }}">
+                        {% else %}
+                            <div class="project-no-img">
+                                <span>NO IMAGE AVAILABLE</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-box">
+                    <h3>COMING SOON.</h3>
+                </div>
+            {% endfor %}
         </section>
     </main>
 

@@ -394,9 +394,95 @@ h2 {
     background-color: var(--accent-light);
     color: var(--base-background);
 }
-/* .projects{
-    height: 300px;
-    } */
+
+/* Project */
+
+.project-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    margin: 4rem 10%;
+}
+
+.project-box:nth-child(odd){
+    flex-direction: row-reverse;
+}
+
+.project-info {
+    flex: 1;
+    max-width: 400px;
+}
+
+.project-title {
+    font-size: 2.5rem;
+    margin-bottom: 7px;
+}
+
+.project-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--half-ink);
+    margin-bottom: 12px
+}
+
+.project-link a{
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.project-link a:hover{
+    color: var(--accent-light);
+}
+
+.project-img {
+    flex: 1.8;
+    aspect-ratio: 16/9;
+    border: var(--line) 1px solid;
+    border-radius: var(--radius);
+    overflow: hidden;
+    /* background-color: yellowgreen; */
+    background-color: var(--base-background);
+}
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 0.4s ease;
+}
+
+.project-img img:hover {
+    transform: scale(1.05);
+}
+
+.project-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--base-background);
+
+
+    background-color: var(--base-background);
+    opacity: 0.8;
+    background-image:  linear-gradient(30deg, var(--accent-dark) 12%, transparent 12.5%, transparent 87%, var(--accent-dark) 87.5%, var(--accent-dark)), linear-gradient(150deg, var(--accent-dark) 12%, transparent 12.5%, transparent 87%, var(--accent-dark) 87.5%, var(--accent-dark)), linear-gradient(30deg, var(--accent-dark) 12%, transparent 12.5%, transparent 87%, var(--accent-dark) 87.5%, var(--accent-dark)), linear-gradient(150deg, var(--accent-dark) 12%, transparent 12.5%, transparent 87%, var(--accent-dark) 87.5%, var(--accent-dark)),
+                        linear-gradient(60deg, #444CF777 25%, transparent 25.5%, transparent 75%, #444CF777 75%, #444CF777), linear-gradient(60deg, #444CF777 25%, transparent 25.5%, transparent 75%, #444CF777 75%, #444CF777);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+}
+
+.project-no-img span {
+    font-family: 'Space Grotesk', -apple-system, monospace;
+    color: var(--half-ink);
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    border: var(--accent-dark) 1px dashed;
+    border-radius: var(--radius);
+    background-color: var(--base-background);
+}
 
 .empty-box {
     display: flex;
@@ -500,6 +586,20 @@ h2 {
     .desc .line {
         height: 1.5rem;
         width: 1px;
+    }
+
+    .project-box {
+        flex-direction: column-reverse;
+        border-bottom: var(--line) 1px dashed;
+        align-items: flex-start;
+    }
+    
+    .project-box:nth-child(odd) {
+        flex-direction: column-reverse;
+    }
+
+    .project-img {
+        width: 100%;
     }
 }
 
