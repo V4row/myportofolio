@@ -1,44 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }} - Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <header class="site-header">
-        <div class="inside-header">
-            <input type="checkbox" name="" id="menu">
-            <a href="{% url 'main:show_main' %}" class="brand">
-                <span class="kanji">乐</span>
-                <span class="brand-name"><i>Vebian</i></span>
-            </a>
-            <nav>
-                <ul class="nav-list">
-                    <li><a href="{% url 'main:show_main' %}">Who</a></li>
-                    <li><a href="{% url 'main:show_skill' %}">Skills</a></li>
-                    <li><a href="{% url 'main:show_experience' %}">Experience</a></li>
-                    <li><a href="{% url 'main:show_project' %}">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="my-portfolio">
-                <a href="{% url 'main:show_main' %}">Profile</a>
-            </div>
-            <label for="menu" class="toggle"></label>
-        </div>
-
-    </header>
-
+{% extends "base.html" %}
+{% block meta %}
+    <title>Project - {{ name }}</title>
+{% endblock meta %}
+{% block content %}
     <main>
         <section class="projects" id="projects">
             <div class="desc">
@@ -46,7 +10,26 @@
                 <div class="line"></div>
                 <p>Creation</p>
             </div>
-            <h2>Project</h2>
+            <div class="project-header">
+                <h2>Project</h2>
+                <a href="{% url 'main:create_project' %}"
+                       class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Tambah Proyek
+                    </a>
+            </div>
+
+            <form method="get"
+                    action="{% url 'main:show_project' %}"
+                    class="project-search">
+                <input type="search"
+                        name="title"
+                        value="{{ title_query }}"
+                        placeholder="Cari berdasarkan nama proyek"
+                        class="project-search__input"
+                        aria-label="Cari berdasarkan nama proyek">
+                <button type="submit" class="button">Cari</button>
+            </form>
 
             {% for project in project_list %}
                 <div class="project-box">
@@ -56,6 +39,7 @@
                         <div class="project-link">
                             <a href="{{ project.url }}"> See it yourself</a>
                         </div>
+                        {% include "components/project_delete_modal.html" with project=project %}
                     </div>
                     <div class="project-img">
                         {% if project.thumbnail %}
@@ -68,17 +52,17 @@
                     </div>
                 </div>
             {% empty %}
+                {% if title_query %}
+                    <div class="empty-box">
+                        <h3>Tidak ada proyek dengan nama tersebut.</h3>
+                    </div>
+                {% else %}
                 <div class="empty-box">
                     <h3>COMING SOON.</h3>
                 </div>
+                {% endif %}
+                
             {% endfor %}
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Kosmputer, Universitas Indonesia.</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock content %}
