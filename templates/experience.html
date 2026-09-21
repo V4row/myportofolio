@@ -1,54 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }} - Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <header class="site-header">
-        <div class="inside-header">
-            <input type="checkbox" name="" id="menu">
-            <a href="{% url 'main:show_main' %}" class="brand">
-                <span class="kanji">乐</span>
-                <span class="brand-name"><i>Vebian</i></span>
-            </a>
-            <nav>
-                <ul class="nav-list">
-                    <li><a href="{% url 'main:show_main' %}">Who</a></li>
-                    <li><a href="{% url 'main:show_skill' %}">Skills</a></li>
-                    <li><a href="{% url 'main:show_experience' %}">Experience</a></li>
-                    <li><a href="{% url 'main:show_project' %}">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="my-portfolio">
-                <a href="{% url 'main:show_main' %}">Profile</a>
-            </div>
-            <label for="menu" class="toggle"></label>
-        </div>
-
-    </header>
+{% extends "base.html" %}
+{% block meta %}
+    <title>Experience - {{ name }}</title>
+{% endblock meta %}
+{% block content %}
 
     <main>
         <section class="experience-section" id="experience">
             <div class="container">
-                <!-- <p class="section-kicker">Perjalanan saya sejauh ini</p> -->
                 <div class="desc">
                     <span>乐</span>
                     <div class="line"></div>
                     <p>When is this happen?</p>
                 </div>
+            <div class="section-header">
                 <h2>Experience</h2>
+                    <a href="{% url 'main:create_experience' %}"
+                    class="button project-add-button">
+                    <span aria-hidden="true">+</span>
+                    Tambah Pengalaman
+                </a>
+            </div>
+
+            <form   method="get"
+                    action="{% url 'main:show_experience' %}"
+                    class="model-search">
+                    <input type="search"
+                           name="title"
+                           value="{{ title_query }}"
+                           placeholder="Cari berdasarkan nama pengalaman"
+                           class="model-search__input"
+                           aria-label="Cari berdasarkan nama pengalaman">
+                    <button type="submit" class="button">Cari</button>
+                </form>
 
                 <div class="experience-grid">
                     {% for experience in experience_list %}
@@ -66,23 +49,26 @@
                             {% else %}
                                 <p class="experience-status">Selesai</p>
                             {% endif %}
+                            <div class="action-card">
+                                {% include "components/experience_delete_modal.html" with experience=experience %}
+                                <a href="{% url 'main:update_experience' experience.id %}" class="button update-button">Update</a>
+                            </div>
                         </article>
                     {% empty %}
-                        <div class="empty-box">
-                    <h3>
-                        Belum ada pengalaman yang ditambahkan.
-                    </h3>
-                </div>
+                        {% if title_query %}
+                            <div class="empty-box">
+                                <h3>Tidak ada proyek dengan nama tersebut.</h3>
+                            </div>
+                        {% else %}
+                            <div class="empty-box">
+                                <h3>
+                                    Belum ada pengalaman yang ditambahkan.
+                                </h3>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Kosmputer, Universitas Indonesia.</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock content %}

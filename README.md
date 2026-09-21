@@ -32,7 +32,7 @@ Kelas : PBP D
     python3 manage.py makemigrations
     python3 manage.py migrate
     ```
-
+    
     Perlu diingat hal ini harus dilakukan setiap menambah atau mengedit sebuah model di dalam `models.py`.
 
 >Saya menggunakan AI model _Gemini_ dalam mengerjakan tugas 2 ini,  saya gunakan untuk membantu saya menerapkan sistem toggle navbar di layar responsive karena tutorial youtube yang saya ikuti memiliki perbedaan struktur _header_ dan cara membuat struktur laman _Projects_ kiri-kanan tanpa javascript disarankan memakai _nth-child_. Contoh promt yang saya gunakan adalah file `.html` saya dan file `.html` dari contoh [tutorial](https://github.com/SnippetsDevelop/snippetsdevelop.github.io/blob/master/codes/Hamburger-Menu.html) dengan pesan "Saya ingin menerapkan desain ini dikode saya, tapi saya membuat navnya ada ditengah (divideo cuma ada logo dan nav), bagaimana agar bisa dipakai di kode saya". Selain itu saya juga mengikuti tutorial lain yang beberapa saya tambahkan di bagian _Learning Source_.

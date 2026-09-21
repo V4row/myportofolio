@@ -1,8 +1,8 @@
-from django.forms import ModelForm, TextInput, Textarea, URLInput
+from django.forms import ModelForm, TextInput, Textarea, URLInput, Select, DateTimeInput
 from django import forms
 from django.conf import settings
 
-from main.models import Project
+from main.models import Project, Experience
 
 class ProjectForm(ModelForm):
     secret_code = forms.CharField(
@@ -60,3 +60,54 @@ class ProjectForm(ModelForm):
         if not expected_key or secret_code != expected_key:
             raise forms.ValidationError("Kode rahasia salah! Kamu tidak berhak menambah proyek.")
         return secret_code
+
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = Experience
+        fields = [
+            "title",
+            "description",
+            "category",
+            "thumbnail",
+            "ended_at",
+        ]
+
+        labels = {
+            "title" : "Nama Pengalaman",
+            "description" : "Deskripsi Pengalaman",
+            "category" : "Kategori Pengalaman",
+            "thumbnail" : "Gambar Pengalaman",
+            "started_at": "Waktu mulai Pengalaman",
+            "ended_at": "Waktu berakhir Pengalaman",
+        }
+        
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "placeholder": "Lomba Tidur",
+                    "maxlength": 255,
+                }
+            ),
+            "description": Textarea(
+                attrs={
+                    "placeholder": "Memenangkan lomba bisa tidur dimana saja",
+                    "rows" : 3
+                }
+            ),
+            "category": Select(
+                attrs={
+                "placeholder": "Pilih kategori pengalaman"
+                }
+            ),
+            "thumbnail": URLInput(
+                attrs={
+                    "placeholder": "https://drive.google.com/thumbnail?id=...&sz=w1000"
+                }
+            ),
+            "ended_at": DateTimeInput(
+                attrs={
+                    "placeholder": "Kapan pengalaman ini berakhir",
+                    "type": "date",
+                }
+            ) 
+        }

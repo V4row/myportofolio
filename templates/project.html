@@ -10,23 +10,23 @@
                 <div class="line"></div>
                 <p>Creation</p>
             </div>
-            <div class="project-header">
+            <div class="section-header">
                 <h2>Project</h2>
                 <a href="{% url 'main:create_project' %}"
                        class="button project-add-button">
                         <span aria-hidden="true">+</span>
                         Tambah Proyek
-                    </a>
+                </a>
             </div>
 
             <form method="get"
                     action="{% url 'main:show_project' %}"
-                    class="project-search">
+                    class="model-search">
                 <input type="search"
                         name="title"
                         value="{{ title_query }}"
                         placeholder="Cari berdasarkan nama proyek"
-                        class="project-search__input"
+                        class="model-search__input"
                         aria-label="Cari berdasarkan nama proyek">
                 <button type="submit" class="button">Cari</button>
             </form>
@@ -39,7 +39,10 @@
                         <div class="project-link">
                             <a href="{{ project.url }}"> See it yourself</a>
                         </div>
-                        {% include "components/project_delete_modal.html" with project=project %}
+                        <div class="action-card">    
+                            {% include "components/project_delete_modal.html" with project=project %}
+                            <a href="{% url 'main:update_project' project.id %}" class="button update-button">Update</a>
+                        </div>
                     </div>
                     <div class="project-img">
                         {% if project.thumbnail %}
@@ -54,12 +57,12 @@
             {% empty %}
                 {% if title_query %}
                     <div class="empty-box">
-                        <h3>Tidak ada proyek dengan nama tersebut.</h3>
+                        <h3>Tidak ada pengalaman dengan nama tersebut.</h3>
                     </div>
                 {% else %}
-                <div class="empty-box">
-                    <h3>COMING SOON.</h3>
-                </div>
+                    <div class="empty-box">
+                        <h3>COMING SOON.</h3>
+                    </div>
                 {% endif %}
                 
             {% endfor %}

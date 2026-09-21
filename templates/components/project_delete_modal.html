@@ -1,4 +1,4 @@
-<p class="experience-status">
+<p class="delete-status">
     <button type="button"
             class="button button-danger"
             popovertarget="delete-project-{{ project.id }}"
@@ -9,19 +9,19 @@
 </p>
 
 <div id="delete-project-{{ project.id }}"
-     class="project-delete-modal"
+     class="model-delete-modal"
      popover="auto"
      role="dialog"
      aria-modal="true"
      aria-labelledby="delete-project-title-{{ project.id }}">
     <button type="button"
-            class="project-delete-modal__backdrop"
+            class="model-delete-modal__backdrop"
             popovertarget="delete-project-{{ project.id }}"
             popovertargetaction="hide"
             aria-label="Tutup konfirmasi hapus"></button>
-    <div class="project-delete-modal__content">
+    <div class="model-delete-modal__content">
         <button type="button"
-                class="project-delete-modal__close"
+                class="model-delete-modal__close"
                 popovertarget="delete-project-{{ project.id }}"
                 popovertargetaction="hide"
                 aria-label="Tutup konfirmasi hapus">×</button>
@@ -41,7 +41,7 @@
                     required
                 >
             </div>
-            <div class="project-delete-modal__actions">
+            <div class="model-delete-modal__actions">
                 <button type="button"
                         class="button button-secondary"
                         popovertarget="delete-project-{{ project.id }}"

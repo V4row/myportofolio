@@ -1,44 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }} - Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <header class="site-header">
-        <div class="inside-header">
-            <input type="checkbox" name="" id="menu">
-            <a href="{% url 'main:show_main' %}" class="brand">
-                <span class="kanji">乐</span>
-                <span class="brand-name"><i>Vebian</i></span>
-            </a>
-            <nav>
-                <ul class="nav-list">
-                    <li><a href="{% url 'main:show_main' %}">Who</a></li>
-                    <li><a href="{% url 'main:show_skill' %}">Skills</a></li>
-                    <li><a href="{% url 'main:show_experience' %}">Experience</a></li>
-                    <li><a href="{% url 'main:show_project' %}">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="my-portfolio">
-                <a href="{% url 'main:show_main' %}">Profile</a>
-            </div>
-            <label for="menu" class="toggle"></label>
-        </div>
-
-    </header>
-
+{% extends "base.html" %}
+{% block meta %}
+    <title>Skill - {{ name }}</title>
+{% endblock meta %}
+{% block content %}
     <main>
         <section class="skills" id="skills">
             <div class="desc">
@@ -67,11 +31,4 @@
             {% endfor %}
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Kosmputer, Universitas Indonesia.</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock content %}
