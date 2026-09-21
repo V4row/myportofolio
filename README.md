@@ -32,10 +32,21 @@ Kelas : PBP D
     python3 manage.py makemigrations
     python3 manage.py migrate
     ```
-    
+
     Perlu diingat hal ini harus dilakukan setiap menambah atau mengedit sebuah model di dalam `models.py`.
 
 >Saya menggunakan AI model _Gemini_ dalam mengerjakan tugas 2 ini,  saya gunakan untuk membantu saya menerapkan sistem toggle navbar di layar responsive karena tutorial youtube yang saya ikuti memiliki perbedaan struktur _header_ dan cara membuat struktur laman _Projects_ kiri-kanan tanpa javascript disarankan memakai _nth-child_. Contoh promt yang saya gunakan adalah file `.html` saya dan file `.html` dari contoh [tutorial](https://github.com/SnippetsDevelop/snippetsdevelop.github.io/blob/master/codes/Hamburger-Menu.html) dengan pesan "Saya ingin menerapkan desain ini dikode saya, tapi saya membuat navnya ada ditengah (divideo cuma ada logo dan nav), bagaimana agar bisa dipakai di kode saya". Selain itu saya juga mengikuti tutorial lain yang beberapa saya tambahkan di bagian _Learning Source_.
+
+### Tugas 3
+
+1. Penggunaan ModelForm dibanding membuat secara manual utamanya agar form tersebut dapat digunakan kembali dan tak perlu duplikasi lagi, terlebih menggunakan form ini kita dapat langsung mengambil field apa saja yang ada didalam model. Penggunaan `{% csrf_token %}` pada form agar penambahan yang dilakukan di web service mendapat izin otorisasi (misal di pws).
+
+2. JSON lebih disukai dibandingkan XML karena lebih simpel dan cepat serta penggunaannya yang cocok dengan javascript karena memang bagian dari javascript itu sendiri.
+
+3. Alurnya dimulai dari pengguna memberi *request* kepada *views* lalu mengakses data model (jika diperlukan, akan memfilter juga untuk kegunaan *search*). Setelah data object model didapatkan, dilakukan proses *serialization* untuk mengubahnya menjadi format JSON dan dikembalikan dalam bentuk HTTP response.
+
+>Saya menggunakan AI model _Gemini_ pada pengerjaan tugas 2 ini, tepatnya dibagian kode rahasia untuk create, update dan delete (bagian project). Tapi saya tidak mengerti jadi tidak saya lanjut terapkan di model _experience_ dan berencana menggunakan metode autensifikasi saja sesuai materi minggu berikutnya.
+Disisi lain sebenarnya saya masih binggung untuk update, saya menggabungkan logika create dan delete untuk buat fungsi update di `main/views`, semabri mengikuti contoh orang yang sedikit berbeda desainnya. Intinya saya mengetahui untuk bisa update butuh idnya seperti ketika mendelete, lalu saya copy sisa create dan menambahkan (contoh) instance=project, hal ini yang membuat inputnya langsung terisi dengan object model yang kita pilih. Lalu saya juga copy `project_form.html` untuk membuat `project_update_form.html` agar judulnya bisa saya ubah bukan "Add New Projects". Tapi ketika saya coba, malah terjadi error yang entah bagaimana saat saya hapus bagian `action="{% url 'main:update_project' %}"` (saya copy dan ubah dari yang sebelumnya `action="{% url 'main:create_project' %}"` di `project_form.html`), malah bisa berhasil. (saya juga lihat di contoh youtube action mereka kosong ""). Saya menjelaskan ini karena setelah saya melakukan ini baru saya bertanya kepada AI model _Gemini_ alasan hal tersebut bisa terjadi.
 
 ## Learning Source
 Pada Tugas ini, banyak refrensi yang saya gunakan, dan refrensi utama saya untuk membuat website ini adalah desain dari web
@@ -53,6 +64,8 @@ Selain itu banyak juga tutorial dari Youtube yang saya tonton, seperti berikut:
 * https://youtu.be/sDE34X8b6Ts?list=PLZS-MHyEIRo6p_RwsWntxMO5QAqIHHHld (Playlist django oleh **Kelas Terbuka** yang belum saya tonton semua karena agak berbeda :v)
 * https://youtu.be/OnWTTUfBLMo?si=lDTH7QOPW62BeHeN (toggle menu)
 * https://youtu.be/Rw1JeekTUVU?si=iO_lJC2dptWYQu1V (logic DTE)
+* https://youtu.be/FtMsJ5qj6RY?si=btOM2cUwUFnjYpmU (Create, update, delete)
+* https://youtu.be/EX6Tt-ZW0so?si=P96EONG3vRrVU9Cz
 * Dan lainnya (Ada yang dari shorts Youtube juga)
 
 Saya juga belajar pemakaian dan masalah git/github serta hal lainnya dengan bantuan paman saya. <br>
