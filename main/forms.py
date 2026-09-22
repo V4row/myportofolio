@@ -1,7 +1,4 @@
 from django.forms import ModelForm, TextInput, Textarea, URLInput, Select, DateTimeInput
-from django import forms
-from django.conf import settings
-
 from main.models import Project, Experience
 
 class ProjectForm(ModelForm):
