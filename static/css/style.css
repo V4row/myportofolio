@@ -855,22 +855,6 @@ h2 {
     background: #b42318;
 }
 
-.secret-key {
-    margin-top: 1rem;
-    margin-bottom: 1rem; 
-}
-
-.secret-key input {
-    width: 100%; 
-    box-sizing: border-box; 
-    padding: 0.6rem; 
-    border: 1px solid var(--line); 
-    border-radius: var(--radius); 
-    background-color: var(--base-background);
-    color: var(--ink);
-    font: inherit;
-}
-
 /* update */
 
 

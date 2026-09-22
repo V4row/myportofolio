@@ -5,14 +5,6 @@ from django.conf import settings
 from main.models import Project, Experience
 
 class ProjectForm(ModelForm):
-    secret_code = forms.CharField(
-            label="Kode Rahasia",
-            widget=forms.PasswordInput(
-                attrs={"placeholder": "Masukkan kode rahasia"}
-            ),
-            required=True
-        )
-
     class Meta:
         model = Project
         fields = [
@@ -53,13 +45,6 @@ class ProjectForm(ModelForm):
                 }
             ),
         }
-    def clean_secret_code(self):
-        secret_code = self.cleaned_data.get("secret_code")
-        expected_key = getattr(settings, "EDIT_KEY", "")
-
-        if not expected_key or secret_code != expected_key:
-            raise forms.ValidationError("Kode rahasia salah! Kamu tidak berhak menambah proyek.")
-        return secret_code
 
 class ExperienceForm(ModelForm):
     class Meta:
