@@ -48,6 +48,10 @@ Kelas : PBP D
 >Saya menggunakan AI model _Gemini_ pada pengerjaan tugas 2 ini, tepatnya dibagian kode rahasia untuk create, update dan delete (bagian project). Tapi saya tidak mengerti jadi tidak saya lanjut terapkan di model _experience_ dan berencana menggunakan metode autensifikasi saja sesuai materi minggu berikutnya.
 Disisi lain sebenarnya saya masih binggung untuk update, saya menggabungkan logika create dan delete untuk buat fungsi update di `main/views`, semabri mengikuti contoh orang yang sedikit berbeda desainnya. Intinya saya mengetahui untuk bisa update butuh idnya seperti ketika mendelete, lalu saya copy sisa create dan menambahkan (contoh) instance=project, hal ini yang membuat inputnya langsung terisi dengan object model yang kita pilih. Lalu saya juga copy `project_form.html` untuk membuat `project_update_form.html` agar judulnya bisa saya ubah bukan "Add New Projects". Tapi ketika saya coba, malah terjadi error yang entah bagaimana saat saya hapus bagian `action="{% url 'main:update_project' %}"` (saya copy dan ubah dari yang sebelumnya `action="{% url 'main:create_project' %}"` di `project_form.html`), malah bisa berhasil. (saya juga lihat di contoh youtube action mereka kosong ""). Saya menjelaskan ini karena setelah saya melakukan ini baru saya bertanya kepada AI model _Gemini_ alasan hal tersebut bisa terjadi.
 
+### Tugas 3
+
+>Saya tidak menggunakan AI dalam mengerjakan tugas ini.
+
 ## Learning Source
 Pada Tugas ini, banyak refrensi yang saya gunakan, dan refrensi utama saya untuk membuat website ini adalah desain dari web
 >[ryoku.dev](https://ryoku.dev/)

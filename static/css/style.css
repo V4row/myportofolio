@@ -80,6 +80,13 @@ nav {
     font-size: 1.2rem;
     text-decoration: none;
 }
+
+.nav-user a{
+    color: var(--accent-light);
+    font-weight: bold;
+    font-size: large;
+}
+
 .my-portfolio:hover a{
     color: var(--base-background);
     transition: all 0.3s ease;
@@ -127,6 +134,12 @@ nav {
 .toggle {
     display: none;
 }
+
+
+.auth-nav{
+    font-weight:bold;
+}
+
 
 main {
     margin: 0 10%;
@@ -513,101 +526,6 @@ h2 {
     padding: 2% 5%;
 }
 
-@media (max-width: 800px) {
-
-    .inside-header {
-        flex-wrap: wrap;
-    }
-
-    nav {
-        width: 100%;
-        order: 1;
-        max-height: 0;
-        overflow: hidden;
-        transition: 0.2s ease-in-out;
-    }
-
-    .nav-list {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        width: 100%;
-        padding-top: 1rem ;
-    }
-
-    .nav-list li {
-        width: 95%;
-        border-top: var(--line) 1px solid;
-    }
-    
-    .nav-list li a {
-        display: block;
-        padding: 0.85rem 0;
-        font-size: 1rem;
-        text-align: center;
-    }
-
-    .my-portfolio{
-        display: none;
-    }
-
-    .toggle{
-        display: block;
-        cursor: pointer;
-        position: relative;
-        line-height: 1;
-        width: 30px;
-        height: 30px;
-    }
-
-    .toggle::before{
-        position: absolute;
-        content: "menu";
-        font-family: 'Material Icons';
-        top: 0;
-        left: 0;
-        font-size: 30px;
-    }
-
-    #menu:checked ~ nav{
-        max-height: 400px;
-    }
-    #menu:checked ~ .toggle::before{
-        content: "close";
-    }
-
-    .hero {
-        flex-direction: column-reverse;
-        gap: 2rem;
-    }
-
-    .hero-top h1 {
-        font-size: 3rem;
-    }
-
-    main {
-        padding: 0 5%;
-    }
-
-    .desc .line {
-        height: 1.5rem;
-        width: 1px;
-    }
-
-    .project-box {
-        flex-direction: column-reverse;
-        border-bottom: var(--line) 1px dashed;
-        align-items: flex-start;
-    }
-    
-    .project-box:nth-child(odd) {
-        flex-direction: column-reverse;
-    }
-
-    .project-img {
-        width: 100%;
-    }
-}
 
 /* Tutorial 2 */
 /* .experience-section {
@@ -874,11 +792,12 @@ h2 {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: var(--ink);
+    background: var(--half-ink);
+    margin-bottom: 1rem;
 }
 
 .button-star.is-starred {
-    background: var(--accent);
+    background: rgb(179, 179, 43);
 }
 
 .star-count {
@@ -886,4 +805,161 @@ h2 {
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.25);
     font-size: 0.8rem;
+}
+
+
+/* Login */
+
+.auth-section{
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.auth-section .container{
+    /* background-color:#8eb2ff; */
+    border: var(--accent-dark) 1px solid;
+    border-radius: var(--radius) ;
+    padding: 50px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.auth-section .container p{
+    margin-top: 0.6rem;
+}
+
+.auth-section .container p a{
+    text-decoration: none;
+    color: var(--accent);
+    transition: color 0,2s ease;
+}
+
+.auth-section .container p a:hover{
+    color: var(--accent-light);
+}
+
+@media (max-width: 800px) {
+
+    .inside-header {
+        flex-wrap: wrap;
+    }
+
+    nav {
+        width: 100%;
+        order: 1;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.2s ease-in-out;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+        padding-top: 1rem ;
+    }
+
+    .nav-list li {
+        width: 95%;
+        border-top: var(--line) 1px solid;
+    }
+    
+    .nav-list li a {
+        display: block;
+        padding: 0.85rem 0;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    /* .my-portfolio{
+        display: none;
+        margin-right: -20vh;
+    } */
+
+    .section-header{
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .section-header a{
+        margin-bottom:1rem ;
+    }
+
+    .toggle{
+        display: block;
+        cursor: pointer;
+        position: relative;
+        line-height: 1;
+        width: 30px;
+        height: 30px;
+        margin-left: -20%;
+    }
+
+    .toggle::before{
+        position: absolute;
+        content: "menu";
+        font-family: 'Material Icons';
+        top: 0;
+        left: 0;
+        font-size: 30px;
+    }
+
+    #menu:checked ~ nav{
+        max-height: 400px;
+    }
+    #menu:checked ~ .toggle::before{
+        content: "close";
+    }
+
+    .hero {
+        flex-direction: column-reverse;
+        gap: 2rem;
+    }
+
+    .hero-top h1 {
+        font-size: 3rem;
+    }
+
+    main {
+        margin: 0 5%;
+    }
+    
+    section {
+        margin-top: 2rem;
+    }
+
+    .desc .line {
+        height: 1.5rem;
+        width: 1px;
+    }
+
+    .project-box {
+        flex-direction: column-reverse;
+        border-bottom: var(--line) 1px dashed;
+        align-items: flex-start;
+    }
+    
+    .project-box:nth-child(odd) {
+        flex-direction: column-reverse;
+    }
+
+    .project-img {
+        width: 100%;
+    }
+
+    /* auth */
+
+
+    .auth-section .container{
+        padding: 10px;
+        border: none;
+    }
+    
+    .form-help{
+        font-size:0.7rem;
+    }
 }

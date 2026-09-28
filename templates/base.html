@@ -29,18 +29,21 @@
                     <li><a href="{% url 'main:show_skill' %}">Skills</a></li>
                     <li><a href="{% url 'main:show_experience' %}">Experience</a></li>
                     <li><a href="{% url 'main:show_project' %}">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
                     {% if user.is_authenticated %}
-                        <span class="nav-user">{{ user.username }}</span>
-                        <li><a href="{% url 'main:logout' %}">Logout</a></li>
+                        <li><a href="{% url 'main:logout' %}" class="nav-logout auth-nav">Logout</a></li>
                     {% else %}
-                        <li><a href="{% url 'main:login' %}">Login</a></li>
-                        <li><a href="{% url 'main:register' %}">Register</a></li>
+                        <li><a href="{% url 'main:login' %}" class="nav-login auth-nav" >Login</a></li>
+                        <li><a href="{% url 'main:register' %}" class="nav-register auth-nav">Register</a></li>
                     {% endif %}
                 </ul>
             </nav>
             <div class="my-portfolio">
-                <a href="{% url 'main:show_main' %}">Profile</a>
+                {% if user.is_authenticated %}
+                    <span class="nav-user"><a href="{% url 'main:show_main' %}">{{ user.username }}</a></span>
+                {% else %}
+                    <a href="{% url 'main:show_main' %}">Profile</a>
+                {% endif %}
+
             </div>
             <label for="menu" class="toggle"></label>
         </div>

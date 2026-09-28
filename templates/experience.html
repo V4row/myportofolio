@@ -52,9 +52,11 @@
                                 <p class="experience-status">Selesai</p>
                             {% endif %}
                             <div class="action-card">
+                                {% if user.is_superuser or is_editor %}
+                                    <a href="{% url 'main:update_experience' experience.id %}" class="button update-button">Update</a>
+                                {% endif %} 
                                 {% if user.is_superuser %}
                                     {% include "components/experience_delete_modal.html" with experience=experience %}
-                                    <a href="{% url 'main:update_experience' experience.id %}" class="button update-button">Update</a>
                                 {% endif %} 
                             </div>
                         </article>

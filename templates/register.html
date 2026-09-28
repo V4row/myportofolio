@@ -4,7 +4,7 @@
 {% endblock meta %}
 {% block content %}
     <main>
-        <section class="experience-section">
+        <section class="auth-section">
             <div class="container">
                 <h1>Buat Akun</h1>
                 <form method="post" action="{% url 'main:register' %}" class="project-form">
@@ -26,7 +26,7 @@
                     {% endfor %}
                     <button type="submit" class="button">Daftar</button>
                 </form>
-                <p>Sudah punya akun? <a href="{% url 'main:login' %}">Login di sini</a>.</p>
+                <p>Sudah punya akun? - <a href="{% url 'main:login' %}">Login di sini</a></p>
             </div>
         </section>
     </main>
