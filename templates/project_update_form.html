@@ -8,6 +8,7 @@
             <div class="container">
                 <h1>Update Projects</h1>
                 <form method="post"
+                      action="{% url 'main:update_project' project.id %}"
                       class="project-form">
                     {% csrf_token %}
                     {% for field in form %}

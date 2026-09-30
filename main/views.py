@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied  
+from django.views.decorators.http import require_POST
 
 from main.models import Experience, Skill, Project
 from main.forms import ProjectForm, ExperienceForm
@@ -90,23 +91,14 @@ def show_skill(request):
     return render(request, "skill.html", context)
 
 def show_project(request):
-    json_response = get_project_json(request)
-
-    is_editor = request.user.groups.filter(name='Editor').exists()
-
-    projects = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-
-    projects = [project.object for project in projects]
     title_query = request.GET.get("title", "").strip()
+    is_editor = request.user.groups.filter(name='Editor').exists()
 
     context = {
         "name" : "Vebian Francois Ariftya Manurung",
-        "project_list" : projects, 
         "title_query" : title_query,
-        "is_editor" : is_editor
+        "form": ProjectForm,
+        "is_editor" : is_editor,
     }
     return render(request, "project.html", context)
 
@@ -128,6 +120,24 @@ def create_project(request):
     }
     return render(request, "project_form.html", context)
 
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
 @login_required(login_url="/login/")
 def delete_project(request, project_id):
     if not request.user.is_superuser:
@@ -144,15 +154,31 @@ def delete_project(request, project_id):
 
 def get_project_json(request):
     title_query = request.GET.get("title", "").strip()
-    projects = Project.objects.all()
+    projects = Project.objects.prefetch_related("starred_by").all()
 
     if title_query:
         projects = projects.filter(title__icontains=title_query)
 
-    projects_json = serializers.serialize(
-        "json", projects, use_natural_foreign_keys=True
-    )
-    return HttpResponse(projects_json, content_type="application/json")
+    data = []
+    for project in projects:
+        starred_users = project.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(project.id),
+            "fields": {
+                "title": project.title,
+                "description": project.description,
+                "project_url": project.url,
+                "project_image_url": project.thumbnail,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url="/login/")
 def update_project(request, project_id):
@@ -173,6 +199,7 @@ def update_project(request, project_id):
     context = {
         "name" : "Vebian Francois Ariftya Manurung",
         "form" : form,
+        "project": project,
     }
     return render(request, "project_update_form.html", context)
 
@@ -248,7 +275,8 @@ def update_experience(request,experience_id):
     
     context = {
         "name": "Vebian Francois Ariftya Manurung",
-        "form": form 
+        "form": form,
+        "experience": experience,
     }
     return render(request, "experience_update_form.html", context)
 
