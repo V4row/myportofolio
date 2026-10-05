@@ -20,7 +20,7 @@
                     </a> -->
                     <button type="button"
                         class="button project-add-button"
-                        popovertarget="add-project-modal">
+                        popovertarget="add-model-modal">
                         <span aria-hidden="true">+</span>
                         Tambah Proyek
                     </button>
@@ -143,6 +143,78 @@
             .replaceAll('"', '&quot;')
             .replaceAll("'", '&#39;');
     }
+
+    // Membuat elemen card project
+    // function buildProjectCardElement(item) {
+    //     const project = item.fields;
+    //     const projectId = item.pk;
+
+    //     const articleElement = document.createElement('div');
+    //     articleElement.className = 'project-box';
+
+    //     const imageHtml = project.project_image_url
+    //         ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${escapeHtml(project.title)}" class="project-image">`
+    //         : '';
+
+    //     const urlHtml = project.project_url
+    //         ? `<a href="${escapeHtml(project.project_url)}" class="button">Lihat Project</a>`
+    //         : '';
+
+    //     // Dummy UUID digunakan untuk digantikan oleh ID asli dari data JSON
+    //     const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
+    //         .replace('00000000-0000-0000-0000-000000000000', projectId);
+    //     const updateUrl = "{% url 'main:update_project' '00000000-0000-0000-0000-000000000000' %}"
+    //         .replace('00000000-0000-0000-0000-000000000000', projectId);
+    //     const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
+    //         .replace('00000000-0000-0000-0000-000000000000', projectId);
+
+    //     const deleteHtml = IS_SUPERUSER 
+    //         ? `<form method="post" action="${deleteUrl}" style="display:inline;">
+    //             {% csrf_token %}
+    //             <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus project ini?');">Hapus</button>
+    //         </form>`
+    //         : '';
+
+    //     const updateHtml = (IS_SUPERUSER || IS_EDITOR)
+    //         ? `<a href="${updateUrl}" class="button update-button">Update</a>`
+    //         : '';
+
+    //     const isStarredClass = project.is_starred ? " is-starred" : "";
+    //     const starText = project.is_starred ? "Unstar" : "Star";
+    //     const starTitle = project.star_count > 0
+    //         ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
+    //         : "Jadilah yang pertama memberi star";
+
+    //     // Komponen card
+    //     // <span class="experience-category">${project.tech_stack}</span>
+    //     const completeCardHtml = `
+    //         ${imageHtml}
+    //         <h2>${escapeHtml(project.title)}</h2>
+    //         <p class="experience-description">${escapeHtml(project.description)}</p>
+    //         <div class="project-card-actions">
+    //             <div class="project-actions">
+    //                 ${urlHtml}
+                    
+    //                 <form method="post" action="${starUrl}" class="star-form">
+    //                     {% csrf_token %}
+    //                     <button type="submit" 
+    //                             class="button button-star${isStarredClass}"
+    //                             title="${starTitle}">
+    //                         <span aria-hidden="true">★</span>
+    //                         ${starText}
+    //                         <span class="star-count">${escapeHtml(project.star_count)}</span>
+    //                     </button>
+    //                 </form>
+
+    //                 ${deleteHtml}
+    //                 ${updateHtml}
+    //             </div>
+    //         </div>
+    //     `;
+
+    //     articleElement.innerHTML = completeCardHtml;
+    //     return articleElement;
+    // }
 
     // Membuat elemen card project
     function buildProjectCardElement(item) {
@@ -274,7 +346,7 @@
     // });
 
     function closeProjectModal() {
-        document.getElementById("add-project-modal").hidePopover();
+        document.getElementById("add-model-modal").hidePopover();
     }
 
     //Dataform

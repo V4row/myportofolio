@@ -65,21 +65,14 @@ def show_main(request):
 
 
 def show_experience(request):
-    json_response = get_experience_json(request)
-
+    title_query = request.GET.get("title", "").strip()
     is_editor = request.user.groups.filter(name='Editor').exists()
 
-    experiences = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    experiences = [experience.object for experience in experiences]
-    title_query = request.GET.get("title", "").strip()
     context = {
         "name": "Vebian Francois Ariftya Manurung",
-        "experience_list": experiences,
         "title_query": title_query,
-        "is_editor" : is_editor
+        "is_editor" : is_editor,
+        "form": ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
@@ -218,6 +211,21 @@ def toggle_star(request, project_id):
     return redirect("main:show_project")
 
 @login_required(login_url="/login/")
+def toggle_star_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if request.method == "POST":
+        # Kalau akun ini sudah pernah memberi star, batalkan star-nya.
+        # Kalau belum, tambahkan star.
+        if request.user in experience.starred_by.all():
+            experience.starred_by.remove(request.user)
+        else:
+            experience.starred_by.add(request.user)
+
+    return redirect("main:show_experience")
+
+
+@login_required(login_url="/login/")
 def create_experience(request):
     if not request.user.is_superuser:
         raise PermissionDenied
@@ -235,15 +243,53 @@ def create_experience(request):
     }
     return render(request, "experience_form.html", context)
 
+@login_required(login_url="/login/")
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+    
+    return JsonResponse({"error": form.errors.get_json_data()}, status=400)
+
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
-    experience = Experience.objects.all()
+    experiences = Experience.objects.prefetch_related('starred_by').all()
 
     if title_query:
-        experience = experience.filter(title__icontains=title_query)
+        experiences = experiences.filter(title__icontains=title_query)
 
-    experience_json = serializers.serialize("json", experience)
-    return HttpResponse(experience_json, content_type="application/json")
+    data = []
+    for experience in experiences:
+        starred_users = experience.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(experience.id),
+            "fields": {
+                "title": experience.title,
+                "description": experience.description,
+                "category": experience.category,
+                "experience_image_url": experience.thumbnail,
+                "started_at": experience.started_at,
+                "ended_at":experience.ended_at,
+                "is_ongoing": experience.is_ongoing,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url="/login/")
 def delete_experience(request, experience_id):

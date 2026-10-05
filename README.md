@@ -48,9 +48,19 @@ Kelas : PBP D
 >Saya menggunakan AI model _Gemini_ pada pengerjaan tugas 2 ini, tepatnya dibagian kode rahasia untuk create, update dan delete (bagian project). Tapi saya tidak mengerti jadi tidak saya lanjut terapkan di model _experience_ dan berencana menggunakan metode autensifikasi saja sesuai materi minggu berikutnya.
 Disisi lain sebenarnya saya masih binggung untuk update, saya menggabungkan logika create dan delete untuk buat fungsi update di `main/views`, semabri mengikuti contoh orang yang sedikit berbeda desainnya. Intinya saya mengetahui untuk bisa update butuh idnya seperti ketika mendelete, lalu saya copy sisa create dan menambahkan (contoh) instance=project, hal ini yang membuat inputnya langsung terisi dengan object model yang kita pilih. Lalu saya juga copy `project_form.html` untuk membuat `project_update_form.html` agar judulnya bisa saya ubah bukan "Add New Projects". Tapi ketika saya coba, malah terjadi error yang entah bagaimana saat saya hapus bagian `action="{% url 'main:update_project' %}"` (saya copy dan ubah dari yang sebelumnya `action="{% url 'main:create_project' %}"` di `project_form.html`), malah bisa berhasil. (saya juga lihat di contoh youtube action mereka kosong ""). Saya menjelaskan ini karena setelah saya melakukan ini baru saya bertanya kepada AI model _Gemini_ alasan hal tersebut bisa terjadi.
 
-### Tugas 3
+### Tugas 4
 
 >Saya tidak menggunakan AI dalam mengerjakan tugas ini.
+
+### Tugas 5
+
+1. Penggunaan _debouncing_ pada fitur pencarian digunakan untuk memberi delay. Dimana di cara pencarian yang di tidak perlu menekan tombol 'Cari' (otomatis mencari) kita membutuhkan sistem delay antara setiap pencarian dari input yang dimasukkan ke dalam form pencarian, jadi browser tidak terus meminta mencari dalam hal ini contohnya judul projek setiap user menambahkan atau mengurangi 1 karakter. Browser akan menunggu dengan waktu yang ditetapkan (contohnya 300ms), jadi ketika user menginput judul yang ingin dicari browser akan menunggu 300ms, lalu ketika selama waktu itu tidak ada input baru lagi, barulah browser meminta/mengirimkan request GET untuk mencari judulnya. Hal ini berguna untuk mengurangi beban internet dan server.
+
+2. `await` digunakan saat menggunakan `fetch()` untuk memberi tau browser untuk menunggu pengambilan data `fetch()` selesai di eksekusi dan mengembalikan nilainya. Seingat saya jika tidak memakai `wait` pemanggilan `fetch()` tadi akan menjadi object/sesuatu yang bernama Promise. Efeknya tanpa `await` browser tidak akan menunggu perintah `fetch()` selesai dan langsung menjalankan perintah selanjutnya, misal jika `fetch()` mengambil sebuah data tapi belum selesai diambil baris kode berikutnya menampilkan data tersebut, akibatnya akan keluar data yang salah atau sampai error.
+
+3. Serangan XSS dilakukan dengan menyisipkan potongan kode script kedalam sebuah input browser yang karena browser pada dasarnya langsung menjalankan script yang ada saat dibuka, maka kode yang disisipkan / _inject_ pun akan langsung dieksekusi. Data yang ditampilkan melalui AJAX/JavaScript lebih rentan terhadap serangan ini karena sistem ini memang manual buatan kita, jadi belum ada penanganan sendiri dan harus kita sediakan. Sedangkan di django templatenya telah mengatasi hal ini secara fitur bawaan, mencegah simbol-simbol berbahaya seperti yang mengandung karakter-karakter membuat script langsung dihapus.
+
+>Saya tidak menggunakan AI dalam mengerjakan tugas ini. saya hanya mengimplementasikan hal yang sama dari tutorial ke model Experience. Tapi saya masih berusaha membuat html sesuai dengan style awal saya, karena saat ini saya memakai contoh dari tutorial yang memakai grid, sedangkan saya pakai flexbox. Lalu saya juga sedang mencoba membuat 'Update' sistemnya popup juga tapi sepertinya belum dapat selesai.
 
 ## Learning Source
 Pada Tugas ini, banyak refrensi yang saya gunakan, dan refrensi utama saya untuk membuat website ini adalah desain dari web
