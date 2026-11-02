@@ -29,7 +29,7 @@ def register(request):
 
 def login_user(request):
     form = AuthenticationForm(request, data=request.POST or None)
-
+    
     if request.method == "POST" and form.is_valid():
         user = form.get_user()
         login(request, user)
