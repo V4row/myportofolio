@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from main.views import (
     show_main,
@@ -42,6 +42,6 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("login/", login_user, name="login"),
     path("logout/", logout_user, name="logout"),
-    path("project/<uuid:project_id>/star/", toggle_star, name="toggle_star",),
-    path("experience/<uuid:experience_id>/star/", toggle_star_experience, name="toggle_star_experience",),
+    path("project/<uuid:project_id>/star/", toggle_star, name="toggle_star"),
+    path("experience/<uuid:experience_id>/star/", toggle_star_experience, name="toggle_star_experience"),
 ]

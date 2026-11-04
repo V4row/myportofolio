@@ -243,7 +243,7 @@ def create_experience(request):
     }
     return render(request, "experience_form.html", context)
 
-@login_required(login_url="/login/")
+@require_POST
 def create_experience_ajax(request):
     if not request.user.is_superuser:
         return JsonResponse(
