@@ -62,6 +62,28 @@ Disisi lain sebenarnya saya masih binggung untuk update, saya menggabungkan logi
 
 >Saya tidak menggunakan AI dalam mengerjakan tugas ini. saya hanya mengimplementasikan hal yang sama dari tutorial ke model Experience. Tapi saya masih berusaha membuat html sesuai dengan style awal saya, karena saat ini saya memakai contoh dari tutorial yang memakai grid, sedangkan saya pakai flexbox. Lalu saya juga sedang mencoba membuat 'Update' sistemnya popup juga tapi sepertinya belum dapat selesai.
 
+
+### Tugas 6
+
+1. REST (Representational State Transfer) adalah aturan/arsitektur cara client dan server saling berkomunikasi. Di REST, URL dipakai untuk sebagai petunjuk lokasi data (resource), misalnya `/api/v1/experiences/<id>/`, sedangkan metode dapat dipilih antara HTTP method GET untuk membaca, POST untuk membuat, PUT/PATCH untuk mengubah, dan DELETE untuk menghapus. Server juga mengembalikan status code yang sesuai, seperti 201 saat data dibuat, 400 saat input salah, 403 saat tidak boleh, 404 saat tidak ada dll. Karena itu mengembalikan JSON saja belum cukup untuk disebut RESTful. JSON hanya format datanya. Pada tutorial sebelumnya, endpoint seperti `get_experience_json` dan `delete_experience` memang mengembalikan JSON atau redirect, tetapi URL-nya berupa perintah (aksi), bukan data, dan status code-nya tidak konsisten (hapus data malah redirect, bukan 204).
+Perbedaan PUT dan PATCH, PUT mengganti seluruh data, jadi semua field harus dikirim ulang. PATCH hanya mengubah field yang dikirim, sedangkan field lain dibiarkan. PUT cocok jika kita ingin mengganti seluruh isi Experience sekaligus, misalnya form yang selalu mengirim semua field. PATCH cocok jika hanya satu atau dua field yang berubah, misalnya Editor memperbaiki judul.
+
+2. Serializer berperan sebagai penerjemah antara objek Python/model (misalnya `Project`) dan JSON. Saat mengirim data, ia mengubah objek menjadi dictionary yang siap menjadi JSON. Saat menerima data, ia memeriksa input (apakah judul kosong, apakah deskripsi ada, dll), membersihkannya lewat `validate_<field>` dan `strip_tags`, lalu menyimpannya ke database.
+Keuntungannya dibanding merakit dictionary manual dengan `JsonResponse` seperti di Tutorial 05 adalah:
+- Tidak perlu membuat fungsi berulang untuk create, delete, update dan lainnya
+- Validasi dan format pesan error (400) sudah ditangani otomatis.
+- Data sensitif seperti email atau password tidak ikut tampil karena field yang keluar hanya yang kita daftarkan.
+- Jika format data berubah, cukup ubah serializer, dan perubahan itu berlaku untuk list, detail, dan star sekaligus.
+
+3. Autentikasi adalah proses mengenali siapa yang mengirim request, misalnya lewat cookie dan session. Otorisasi adalah proses menentukan apa yang boleh dilakukan orang tersebut, misalnya lewat permission class IsPortfolioOwnerOrEditorOrReadOnly yang mengizinkan pemilik melakukan semuanya, Editor hanya PUT/PATCH, dan pengunjung hanya membaca. Autentikasi dijalankan lebih dulu, baru kemudian otorisasi.
+Hak akses harus dicek di server karena menyembunyikannya di template hanya mengubah tampilan, bukan membatasi akses. Kode HTML dan JavaScript berjalan di browser, sehingga siapa pun bisa mengubahnya lewat Develover Tools. Orang juga bisa langsung memanggil URL API memakai Postman, curl, Burp, Browsable API atau sejenisnya tanpa membuka halaman kita.
+
+4. `SessionAuthentication` hanya mengecek siapa pengirim request dari cookie, dan browser mengirim cookie itu otomatis ke server kita, bahkan jika requestnya berasal dari web lain. Jadi web berbahaya dapat melakukan request palsu ke API kita saat admin sedang login, dan server mengiinkan. Token CSRF mencegahnya karena token itu hanya bisa dibaca oleh web sendiri. Web lain tidak bisa menyertakan header `X-CSRFToken` yang benar, sehingga request-nya ditolak.
+Test yang memakai `force_authenticate` tidak cukup karena fungsi itu melewati seluruh proses autentikasi dan langsung membuat request. Pengecekan CSRF ada di dalam proses autentikasi, jadi akan terlewati juga dan test akan tetap berhasil walau perlindungan CSRF gagal. Karena itu test CSRF memakai `APIClient(enforce_csrf_checks=True)`, yaitu login sungguhan pakai session. Test itu membuktikan bahwa POST tanpa token ditolak dan data tidak tersimpan.
+
+
+>Saya tidak menggunakan AI dalam mengerjakan tugas ini. Tapi saya memakainya (entah berbagai sumber Gemini+GPT+dll )untuk memahami tutorial 7 mengenai code-code yang ada disana.
+
 ## Learning Source
 Pada Tugas ini, banyak refrensi yang saya gunakan, dan refrensi utama saya untuk membuat website ini adalah desain dari web
 >[ryoku.dev](https://ryoku.dev/)

@@ -325,4 +325,3 @@ def update_experience(request,experience_id):
         "experience": experience,
     }
     return render(request, "experience_update_form.html", context)
-
