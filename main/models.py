@@ -52,6 +52,7 @@ class Project(models.Model):
    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
    title = models.CharField(max_length=255)
    description = models.TextField()
+   tech_stack = models.CharField(max_length=255, blank=True, default="")
    thumbnail = models.URLField(blank=True, null=True)
    url = models.URLField(blank=False, null=False)
    starred_by = models.ManyToManyField(

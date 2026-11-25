@@ -132,6 +132,8 @@
         const remove = IS_SUPERUSER
             ? `<button type="button" class="button button-danger" data-action="delete"
                 data-id="${escapeHtml(project.id)}">Delete</button>` : '';
+        const techStack = project.tech_stack
+            ? `<span class="experience-category">${escapeHtml(project.tech_stack)}</span>` : '';
         const update = IS_SUPERUSER || IS_EDITOR
             ? `<button type="button" class="button update-button"
                     popovertarget="update-project-modal"
@@ -139,11 +141,12 @@
                     data-id="${escapeHtml(project.id)}"
                     data-title="${escapeHtml(project.title)}"
                     data-description="${escapeHtml(project.description)}"
+                    data-tech-stack="${escapeHtml(project.tech_stack)}"
                     data-url="${escapeHtml(project.url)}"
                     data-thumbnail="${escapeHtml(project.thumbnail)}">Update</button>`
             : '';
 
-        article.innerHTML = `${image}<h2>${escapeHtml(project.title)}</h2>
+        article.innerHTML = `${image}${techStack}<h2>${escapeHtml(project.title)}</h2>
             <p class="experience-description">${escapeHtml(project.description)}</p>
             <div class="project-card-actions"><div class="project-actions">
             ${link}${star}${update}${remove}</div></div>`;
@@ -201,7 +204,7 @@
         try {
             const fields = new FormData(projectForm);
             const payload = Object.fromEntries([
-                'title', 'description', 'url', 'thumbnail',
+                'title', 'description', 'tech_stack', 'url', 'thumbnail',
             ].map(name => [name, fields.get(name)]));
             await writeProject(BASE_PROJECTS_ENDPOINT, 'POST', payload);
             projectForm.reset();
@@ -253,6 +256,7 @@
             updateForm.elements['id'].value = d.id;
             updateForm.elements['title'].value = d.title;
             updateForm.elements['description'].value = d.description;
+            updateForm.elements['tech_stack'].value = d.techStack ?? '';
             updateForm.elements['url'].value = d.url;
             updateForm.elements['thumbnail'].value = d.thumbnail;
             return;

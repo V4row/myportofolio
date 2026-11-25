@@ -34,6 +34,12 @@ class ProjectForm(ModelForm):
                     "rows": 3,
                 }
             ),
+            "tech_stack": TextInput(
+                attrs={
+                    "placeholder": "Django, Python, HTML, CSS",
+                    "maxlength": 255,
+                }
+            ),
             "project_url": URLInput(
                 attrs={
                     "placeholder": "https://github.com/kakBurhan/burhanquestv4",
@@ -53,6 +59,9 @@ class ProjectForm(ModelForm):
 
     def clean_description(self):
         return strip_tags(self.cleaned_data["description"]).strip()
+
+    def clean_tech_stack(self):
+        return strip_tags(self.cleaned_data["tech_stack"]).strip()
 
 class ExperienceForm(ModelForm):
     class Meta:

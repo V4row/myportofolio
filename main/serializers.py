@@ -11,7 +11,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = [
-            "id", "title", "description",
+            "id", "title", "description", "tech_stack",
             "url", "thumbnail",
             "star_count", "is_starred", "starred_by_names",
         ]
@@ -24,6 +24,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         return value
 
     def validate_description(self, value):
+        return strip_tags(value)
+
+    def validate_tech_stack(self, value):
         return strip_tags(value)
 
     def get_star_count(self, obj):
