@@ -214,7 +214,7 @@
         try {
             const fields = new FormData(experienceForm);
             const payload = Object.fromEntries(
-                ['title', 'description', 'category', 'thumbnail', 'ended_at']
+                ['title', 'description', 'category', 'thumbnail', 'started_at','ended_at']
                     .map(name => [name, fields.get(name)])
             );
             await writeExperience(BASE_EXPERIENCES_ENDPOINT, 'POST', payload);
@@ -235,12 +235,12 @@
         const experienceId = updateForm.elements['id'].value;
         button.disabled = true;
         try {
-            const fields = new FormData(experienceForm);  
+            const fields = new FormData(updateForm);  
             const payload = Object.fromEntries(
-                ['title', 'description', 'category', 'thumbnail', 'ended_at']
+                ['title', 'description', 'category', 'thumbnail', 'started_at', 'ended_at']
                     .map(name => [name, fields.get(name)])
             );
-            await writeExperience(BASE_EXPERIENCES_ENDPOINT, 'POST', payload);
+            await writeExperience(experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, experienceId), 'PATCH', payload);
             updateForm.reset();
             document.getElementById('update-experience-modal').hidePopover();
             showToast('Berhasil', 'Pengalaman berhasil diperbarui!', 'success');
@@ -268,6 +268,7 @@
             updateForm.elements['description'].value = d.description;
             updateForm.elements['category'].value = d.category;
             updateForm.elements['thumbnail'].value = d.thumbnail;
+            updateForm.elements['started_at'].value = d.startedAt ? d.startedAt.slice(0, 10) : '';
             updateForm.elements['ended_at'].value = d.endedAt;
             return;
         }

@@ -62,6 +62,7 @@ class ExperienceForm(ModelForm):
             "description",
             "category",
             "thumbnail",
+            "started_at",
             "ended_at",
         ]
 

@@ -52,7 +52,7 @@ class ExperienceSerializer(serializers.ModelSerializer):
             "ended_at", "is_ongoing",
             "star_count", "is_starred", "starred_by_names",
         ]
-        read_only_fields = ["id", "started_at"]
+        read_only_fields = ["id"]
 
     def validate_title(self, value):
         value = strip_tags(value).strip()
